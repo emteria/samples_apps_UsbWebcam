@@ -7,8 +7,7 @@
 #include <android/bitmap.h>
 #include <malloc.h>
 
-void Java_com_ford_openxc_webcam_NativeWebcam_loadNextFrame(JNIEnv* env,
-        jobject thiz, jobject bitmap) {
+void Java_com_ford_openxc_webcam_library_NativeWebcam_loadNextFrame(JNIEnv* env, jobject thiz, jobject bitmap) {
     AndroidBitmapInfo info;
     int result;
     if((result = AndroidBitmap_getInfo(env, bitmap, &info)) < 0) {
@@ -31,8 +30,7 @@ void Java_com_ford_openxc_webcam_NativeWebcam_loadNextFrame(JNIEnv* env,
         return;
     }
 
-    process_camera(DEVICE_DESCRIPTOR, FRAME_BUFFERS, info.width, info.height,
-            RGB_BUFFER, Y_BUFFER);
+    process_camera(DEVICE_DESCRIPTOR, FRAME_BUFFERS, info.width, info.height, RGB_BUFFER, Y_BUFFER);
 
     int *lrgb = &RGB_BUFFER[0];
     for(int i = 0; i < info.width * info.height; i++) {
@@ -42,8 +40,7 @@ void Java_com_ford_openxc_webcam_NativeWebcam_loadNextFrame(JNIEnv* env,
     AndroidBitmap_unlockPixels(env, bitmap);
 }
 
-jint Java_com_ford_openxc_webcam_NativeWebcam_startCamera(JNIEnv* env,
-        jobject thiz, jstring deviceName, jint width, jint height) {
+jint Java_com_ford_openxc_webcam_library_NativeWebcam_startCamera(JNIEnv* env, jobject thiz, jstring deviceName, jint width, jint height) {
     const char* dev_name = (*env)->GetStringUTFChars(env, deviceName, 0);
     int result = open_device(dev_name, &DEVICE_DESCRIPTOR);
     (*env)->ReleaseStringUTFChars(env, deviceName, dev_name);
@@ -69,13 +66,11 @@ jint Java_com_ford_openxc_webcam_NativeWebcam_startCamera(JNIEnv* env,
     return result;
 }
 
-void Java_com_ford_openxc_webcam_NativeWebcam_stopCamera(JNIEnv* env,
-        jobject thiz) {
+void Java_com_ford_openxc_webcam_library_NativeWebcam_stopCamera(JNIEnv* env, jobject thiz) {
     stop_camera(&DEVICE_DESCRIPTOR, RGB_BUFFER, Y_BUFFER);
 }
 
-jboolean Java_com_ford_openxc_webcam_NativeWebcam_cameraAttached(JNIEnv* env,
-        jobject thiz) {
+jboolean Java_com_ford_openxc_webcam_library_NativeWebcam_cameraAttached(JNIEnv* env, jobject thiz) {
     return DEVICE_DESCRIPTOR != -1;
 }
 

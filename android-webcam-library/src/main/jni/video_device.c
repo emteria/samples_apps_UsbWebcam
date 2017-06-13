@@ -7,7 +7,6 @@
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>
-#include <malloc.h>
 
 int open_device(const char* dev_name, int* fd) {
     struct stat st;

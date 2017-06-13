@@ -7,3 +7,15 @@ gen
 .settings
 libs
 target
+
+.externalNativeBuild/
+build/
+out
+local.properties
+
+.gradle/
+gradle/
+gradlew*
+
+.idea/
+*.iml
