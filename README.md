@@ -9,6 +9,8 @@ webcam.
 The library also provides an example View that can be used directly in a layout,
 the `WebcamPreview`.
 
+**This project was forked from https://github.com/openxc/android-webcam**
+
 ## Problems?
 
 Instead of an FAQ, if you can't get the library to work, try one of these
